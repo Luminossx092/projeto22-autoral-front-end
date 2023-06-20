@@ -1,9 +1,7 @@
-import Navbar from './components/NavBar'
-import SideBar from './components/SideBar'
 import './globals.css'
-import { Inter } from 'next/font/google'
+/* import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] }) */
 
 export const metadata = {
   title: 'SoundLumi',
@@ -11,17 +9,17 @@ export const metadata = {
 }
 
 export default function RootLayout({
-  children, authModal,
+  children, /* authModal, */
 }: {
   children: React.ReactNode,
-  authModal: React.ReactNode,
+/*   authModal: React.ReactNode, */
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body /* className={inter.className} */>
         <div>
           {children}
-          {authModal}
+          {/* authModal */}
         </div>
       </body>
     </html>

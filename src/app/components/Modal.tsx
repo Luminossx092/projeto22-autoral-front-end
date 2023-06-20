@@ -1,35 +1,3 @@
-/* import React from "react";
-import ReactDOM from "react-dom";
-
-const Modal = ({ onClose, children, title }) => {
-    const handleCloseClick = (e) => {
-        e.preventDefault();
-        onClose();
-    };
-
-    const modalContent = (
-        <div className="w-2/3 h-1/2">
-            <div className="modal-wrapper">
-                <div className="bg-slate-100 h-full w-full rounded-2xl p-4">
-                    <div className="modal-header">
-                        <a href="#" onClick={handleCloseClick}>
-                            x
-                        </a>
-                    </div>
-                    {title && <h1>{title}</h1>}
-                    <div className="modal-body">{children}</div>
-                </div>
-            </div>
-        </div>
-    );
-
-    return ReactDOM.createPortal(
-        modalContent,
-        document.getElementById("modal-root")
-    );
-};
-
-export default Modal */
 "use client";
 
 import { useCallback, useRef, useEffect } from "react";
@@ -80,15 +48,15 @@ export default function Modal({ children }) {
         display: "flex",
         justifyItems: "center",
         justifyContent: "center",
-        padding: 40,
-        backgroundColor: "rgb(0 0 0 / 50%)",
+        padding: 20,
+        backgroundColor: "rgba(255, 255, 255,0.7)",
       }}
     >
       <div
         ref={wrapper}
         style={{
           background: "white",
-          padding: 20,
+          padding: 0,
         }}
       >
         {children}
