@@ -1,25 +1,50 @@
-import axios from "axios";
-import { useState } from "react";
-import { POST } from "./api/route";
+'use client'
+import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
+import apiAuth from "../api/auth";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function SignUp() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+  const { token, setToken } = useContext(AuthContext);
 
   function handleSubmit(event) {
     event.preventDefault();
-    alert(password + email);
     const body = {
+      name,
       email,
       password,
     }
-    POST(body);
+
+    apiAuth.signUp(body)
+      .then(response => {
+        console.log(response);
+        setToken(response.data.token);
+        router.push('/');
+      })
+      .catch(_ => { alert("Email already in use"); });
   }
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label /* for="email" */ className="block text-sm font-medium text-gray-700">
+                Username
+              </label>
+              <div className="mt-1">
+                <input id="name" name="name" type="text" /* autocomplete="email" */ required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Enter your email address" />
+              </div>
+            </div>
+
             <div>
               <label /* for="email" */ className="block text-sm font-medium text-gray-700">
                 Email address

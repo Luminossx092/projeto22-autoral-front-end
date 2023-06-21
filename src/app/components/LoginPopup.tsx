@@ -1,24 +1,32 @@
 'use client'
 
 import Link from "next/link";
-import { useState } from "react";
-import axios from "axios";
+import { useContext, useState } from "react";
+import apiAuth from "../api/auth";
+import { useRouter } from "next/navigation";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function LoginPopup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+  const { token, setToken } = useContext(AuthContext);
 
   function handleSubmit(event) {
     event.preventDefault();
-    alert(password + email);
     const body = {
       email,
       password,
     }
-    axios.post(`${process.env.REACT_APP_API_URL}/sing-in`, body)
-      .then(response => { console.log(response) })
-      .catch(response => { console.log(response) });
+    apiAuth.signIn(body)
+      .then(response => {
+        console.log(response);
+        setToken(response.data.token);
+        router.push('/')
+      })
+      .catch(_ => { alert("Email don't exists"); })
   }
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
